@@ -80,6 +80,14 @@ li {
   font-size: 1.4em;
 }
 
+.completed-todo {
+  opacity: 0.5;
+}
+
+.completed-todo > .task-btns > .complete-btn {
+  display: none;
+}
+
 .task-btns {
   display: flex;
   gap: 10px;
@@ -91,6 +99,12 @@ li {
   height: 30px;
   background-size: contain;
   background-repeat: no-repeat;
+  transition: all 0.3s ease;
+}
+
+.complete-btn:hover,
+.delete-btn:hover {
+  transform: scale(1.15);
 }
 
 .complete-btn {

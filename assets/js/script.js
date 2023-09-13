@@ -19,7 +19,10 @@ function createList() {
 
   if (tasks.length) {
     tasks.forEach((todo, idx) => {
-      const task = createTodo(todo);
+      const task = createTodo(todo.text);
+      if (todo.isCompleted) {
+        task.classList.add("completed-todo");
+      }
       task.setAttribute("data-index", `${idx}`);
       todoList.append(task);
     });
@@ -36,7 +39,7 @@ document.addEventListener("click", (event) => {
 
     if (inputValue) {
       let tasks = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
-      tasks.push(inputValue);
+      tasks.push({ text: inputValue, isCompleted: false });
       localStorage.setItem("tasks", JSON.stringify(tasks));
 
       createList();
@@ -47,6 +50,19 @@ document.addEventListener("click", (event) => {
     let tasks = JSON.parse(localStorage.getItem("tasks"));
     const currentIndex = +target.parentNode.parentNode.getAttribute("data-index");
     tasks.splice(currentIndex, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    createList();
+  }
+
+  if (target.classList.contains("complete-btn")) {
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    const currentIndex = +target.parentNode.parentNode.getAttribute("data-index");
+    const currentTodo = tasks[currentIndex];
+
+    currentTodo.isCompleted = true;
+    tasks.splice(currentIndex, 1);
+    tasks.push(currentTodo);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
     createList();
