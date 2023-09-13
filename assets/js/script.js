@@ -67,4 +67,20 @@ document.addEventListener("click", (event) => {
 
     createList();
   }
+
+  if (target.classList.contains("shift-todo")) {
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks.shift();
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    createList();
+  }
+
+  if (target.classList.contains("pop-task")) {
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks.pop();
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    createList();
+  }
 });
