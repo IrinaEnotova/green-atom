@@ -18,8 +18,10 @@ function createList() {
   todoList.innerHTML = "";
 
   if (tasks.length) {
-    tasks.forEach((todo) => {
-      todoList.append(createTodo(todo));
+    tasks.forEach((todo, idx) => {
+      const task = createTodo(todo);
+      task.setAttribute("data-index", `${idx}`);
+      todoList.append(task);
     });
   }
 }
@@ -39,5 +41,14 @@ document.addEventListener("click", (event) => {
 
       createList();
     }
+  }
+
+  if (target.classList.contains("delete-btn")) {
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    const currentIndex = +target.parentNode.parentNode.getAttribute("data-index");
+    tasks.splice(currentIndex, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    createList();
   }
 });
