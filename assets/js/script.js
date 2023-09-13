@@ -83,4 +83,28 @@ document.addEventListener("click", (event) => {
 
     createList();
   }
+
+  if (target.classList.contains("highlight-odd")) {
+    const tasks = document.querySelectorAll(".todo-item");
+    const btn = document.querySelector(".highlight-odd");
+
+    btn.classList.toggle("highlighting");
+    tasks.forEach((todo, idx) => {
+      if ((idx + 1) % 2 !== 0) {
+        todo.classList.toggle("highlighting");
+      }
+    });
+  }
+
+  if (target.classList.contains("highlight-even")) {
+    const tasks = document.querySelectorAll(".todo-item");
+    const btn = document.querySelector(".highlight-even");
+
+    btn.classList.toggle("highlighting");
+    tasks.forEach((todo, idx) => {
+      if ((idx + 1) % 2 === 0) {
+        todo.classList.toggle("highlighting");
+      }
+    });
+  }
 });
